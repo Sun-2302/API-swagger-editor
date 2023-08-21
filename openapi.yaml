@@ -8,9 +8,6 @@ servers:
 tags:
   - name: students
   - name: teachers
-
-
-
 paths:
   /students:
     post:
@@ -69,6 +66,125 @@ paths:
                 $ref: '#/components/schemas/Students'
         '500':
           description: Internal Servor Error
+    put:
+      tags:
+        - students
+      summary: Update an existing student by ID
+      operationId: updateStudent
+      parameters:
+        - name: studentId
+          in: path
+          description: id of student to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update a student
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Students'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Students'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Students'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Students'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Students'
+        '500':
+          description: Internal Servor Error
+    delete:
+      tags:
+        - students
+      summary: Delete a student by ID
+      operationId: deleteStudent
+      parameters:
+        - name: studentId
+          in: path
+          description: Student id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid student value
+        '500':
+          description: Internal Servor Error
+
+  /teachers:
+    post:
+      tags:
+        - teachers
+      summary: Add a new teacher
+      requestBody:
+        description: Create a new teacher
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Teachers'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Teachers'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Teachers'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teachers'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Teachers'
+        '500':
+          description: Internal Servor Error
+
+  /teachers/{teachersId}:
+    get:
+      tags:
+        - teachers
+      summary: Find teacher by ID
+      description: Returns a single teacher
+      operationId: getById
+      parameters:
+        - name: teacherId
+          in: path
+          description: ID of teacher to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teachers'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Teachers'
+        '500':
+          description: Internal Servor Error
+
+
 components:
   schemas:
     Students:
