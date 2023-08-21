@@ -6,10 +6,16 @@ info:
 servers:
   - url: https://std22038.com/api/v1
 tags:
-  - name: default
+  - name: students
+  - name: teachers
+
+
+
 paths:
   /students:
     post:
+      tags:
+        - students
       summary: Add a new student
       requestBody:
         description: Create a new student
@@ -38,6 +44,8 @@ paths:
           description: Internal Servor Error
   /student/{studentId}:
     get:
+      tags:
+        - students
       summary: Find student by ID
       description: Returns a single student
       operationId: getById
@@ -79,7 +87,40 @@ components:
           example: 2005-02-02
       xml:
         name: students
-        
+    Teachers:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        firstname:
+          type: string
+          example: Toky
+        lastname:
+          type: string
+          example: Ramarozaka
+        courses:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              code:
+                type: string
+              duration:
+                type: integer
+          example:
+            - name: Algorithmique
+              code: PROG1
+              duration: 64
+            - name: Base de données structurées
+              code: DONNEES1
+              duration: 48
+
+
+
   securitySchemes:
     petstore_auth:
       type: oauth2
